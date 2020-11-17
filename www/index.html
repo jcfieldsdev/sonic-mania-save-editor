@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>Sonic Mania Save Editor</title>
+<meta charset="utf-8">
+<meta name="title" content="Sonic Mania Save Editor">
+<meta name="description" content="Edits save files for Sonic Mania.">
+<link href="mailto:jcfields@jcfields.dev" rel="author" title="J.C. Fields">
+<link href="layout/style.css" media="screen" rel="stylesheet" type="text/css">
+<link href="layout/favicon.png" rel="shortcut icon" type="image/png">
+<link href="layout/homeicon.png" rel="apple-touch-icon-precomposed" type="image/png">
+<script src="saveedit.js" type="text/javascript"></script></head>
+<body><header><h1><span class="title">Sonic Mania</span> Save Editor</h1></header>
+<main><noscript><p>Must have JavaScript enabled.</p></noscript>
+<canvas id="backdrop"></canvas>
+<section id="load"><h2>Load Game</h2>
+<div class="container">
+	<div id="open">
+		<label>Open file: <input type="file" id="file" accept=".bin"></label>
+	</div>
+	<p><label>Speed slider: <input type="range" min="0" max="10" value="5" id="speed"></label></p>
+	<p><button type="button" id="toggleUnknown">Toggle Unknowns</button></p>
+</div></section>
+<section id="maniaMode"><h2>Mania Mode</h2>
+<ul id="maniaSlot" class="slots">
+	<li><button type="button" value="0" class="tab active">1</button></li>
+	<li><button type="button" value="1" class="tab">2</button></li>
+	<li><button type="button" value="2" class="tab">3</button></li>
+	<li><button type="button" value="3" class="tab">4</button></li>
+	<li><button type="button" value="4" class="tab">5</button></li>
+	<li><button type="button" value="5" class="tab">6</button></li>
+	<li><button type="button" value="6" class="tab">7</button></li>
+	<li><button type="button" value="7" class="tab">8</button></li>
+</ul>
+<div class="container">
+	<div id="section_character"><h3>Character</h3>
+		<p><button type="button" value="0" title="Sonic" class="maniaCharacter character sonictails selected"><span>Sonic &amp; Tails</span></button>
+		<button type="button" value="1" title="Sonic" class="maniaCharacter character sonic"><span>Sonic</span></button>
+		<button type="button" value="2" title="Tails" class="maniaCharacter character tails"><span>Tails</span></button><wbr>
+		<button type="button" value="3" title="Knuckles" class="maniaCharacter character knuckles"><span>Knuckles</span></button>
+		<button type="button" value="4" title="Mighty" class="maniaCharacter character mighty"><span>Mighty</span></button>
+		<button type="button" value="5" title="Ray" class="maniaCharacter character ray"><span>Ray</span></button>
+	</div>
+	<div class="section_lives"><h3>Lives</h3>
+		<p><input type="number" min="1" max="99" value="3" class="lives"></p>
+	</div>
+	<div class="section_continues"><h3>Continues</h3>
+		<p><input type="number" min="0" max="99" value="0" class="continues"></p>
+	</div>
+	<div class="section_score"><h3>Score</h3>
+		<p><input type="number" min="0" max="9999999" value="0" class="score"></p>
+	</div>
+	<div class="section_stage"><h3>Stage</h3>
+		<p class="preview"></p>
+		<p><span class="showStage"></span></p>
+		<p><input type="range" min="0" max="13" value="0" class="stage"></p>
+	</div>
+	<div class="section_emeralds"><h3>Chaos Emeralds</h3>
+		<p><button type="button" value="1" title="Green Chaos Emerald" class="maniaEmerald emerald green"><span>Green</span></button>
+		<button type="button" value="2" title="Yellow Chaos Emerald" class="maniaEmerald emerald yellow"><span>Yellow</span></button>
+		<button type="button" value="4" title="Purple Chaos Emerald" class="maniaEmerald emerald purple"><span>Purple</span></button>
+		<button type="button" value="8" title="Pink Chaos Emerald" class="maniaEmerald emerald pink"><span>Pink</span></button><wbr>
+		<button type="button" value="16" title="Grey Chaos Emerald" class="maniaEmerald emerald grey"><span>Grey</span></button>
+		<button type="button" value="32" title="Blue Chaos Emerald" class="maniaEmerald emerald blue"><span>Blue</span></button>
+		<button type="button" value="64" title="Red Chaos Emerald" class="maniaEmerald emerald red"><span>Red</span></button></p>
+	</div>
+	<div class="section_giantRings"><h3>Giant Rings</h3>
+		<p><button type="button" class="maniaRing ring" value="0"><span>1</span></button>
+		<button type="button" class="maniaRing ring" value="1"><span>2</span></button>
+		<button type="button" class="maniaRing ring" value="2"><span>3</span></button>
+		<button type="button" class="maniaRing ring" value="3"><span>4</span></button><wbr>
+		<button type="button" class="maniaRing ring" value="4"><span>5</span></button>
+		<button type="button" class="maniaRing ring" value="5"><span>6</span></button>
+		<button type="button" class="maniaRing ring" value="6"><span>7</span></button></p>
+		<p><label>Next Special Stage: <select class="specialStages">
+			<option value="1">Special Stage 1</option>
+			<option value="2">Special Stage 2</option>
+			<option value="3">Special Stage 3</option>
+			<option value="4">Special Stage 4</option>
+			<option value="5">Special Stage 5</option>
+			<option value="6">Special Stage 6</option>
+			<option value="7">Special Stage 7</option>
+			<option value="0">Completed</option>
+		</select></label></p>
+	</div>
+	<div class="section_times"><h3>Times</h3>
+		<p><span class="showLevel"></span></p>
+		<p><input type="range" min="0" max="26" value="0" class="level"></p>
+		<p><input type="number" min="0" max="99" value="0" class="time hr"> :
+		<input type="number" min="0" max="59" value="0" class="time min"> &prime;
+		<input type="number" min="0" max="59" value="0" class="time sec"> &Prime;
+		<input type="number" min="0" max="99" value="0" class="time tick"></p>
+	</div>
+	<div class="section_totalTime"><h3>Total Time</h3>
+		<p><span class="totalHr">0</span>: <span class="totalMin">0</span>&prime; <span class="totalSec">00</span>&Prime; <span class="totalTick">00</span></p>
+	</div>
+	<div id="section_options"><h3>Options</h3>
+		<table>
+			<tr><th>Time Limit</th>
+			<td><button type="button" value="32" class="option timeLimit">Off</button>
+			<button type="button" value="0" class="option timeLimit">On</button></td></tr>
+			<tr><th>Debug Mode</th>
+			<td><button type="button" value="0" class="option debugMode">Off</button>
+			<button type="button" value="1" class="option debugMode">On</button></td></tr>
+			<tr><th>Sonic Ability</th>
+			<td><button type="button" value="0" class="option sonicAbility">Mania</button>
+			<button type="button" value="20" class="option sonicAbility">CD</button>
+			<button type="button" value="24" class="option sonicAbility">S3&amp;K</button></td></tr>
+			<tr><th>&amp; Knuckles</th>
+			<td><button type="button" value="0" class="option andKnuckles">Off</button>
+			<button type="button" value="2" class="option andKnuckles">On</button></td></tr>
+		</table>
+	</div>
+	<div class="section_unknown" hidden="hidden"><h3>Unknown</h3>
+		<p>0x078: <input type="number" min="0" max="255" value="0" id="maniaUnknown"></p>
+	</div>
+</div></section>
+<section id="encoreMode"><h2>Encore Mode</h2>
+<ul id="encoreSlot" class="slots">
+	<li><button type="button" value="0" class="tab active">1</button></li>
+	<li><button type="button" value="1" class="tab">2</button></li>
+	<li><button type="button" value="2" class="tab">3</button></li>
+</ul>
+<div class="container">
+	<div id="section_character1"><h3>Primary Character</h3>
+		<p><button type="button" value="1" title="Sonic" class="encoreCharacter1 character sonic"><span>Sonic</span></button>
+		<button type="button" value="2" title="Tails" class="encoreCharacter1 character tails"><span>Tails</span></button>
+		<button type="button" value="4" title="Knuckles" class="encoreCharacter1 character knuckles"><span>Knuckles</span></button><br>
+		<button type="button" value="8" title="Mighty" class="encoreCharacter1 character mighty"><span>Mighty</span></button>
+		<button type="button" value="16" title="Ray" class="encoreCharacter1 character ray"><span>Ray</span></button>
+	</div>
+	<div id="section_character2"><h3>Secondary Character</h3>
+		<p><button type="button" value="1" title="Sonic" class="encoreCharacter2 character sonic"><span>Sonic</span></button>
+		<button type="button" value="2" title="Tails" class="encoreCharacter2 character tails"><span>Tails</span></button><br>
+		<button type="button" value="4" title="Knuckles" class="encoreCharacter2 character knuckles"><span>Knuckles</span></button>
+		<button type="button" value="8" title="Mighty" class="encoreCharacter2 character mighty"><span>Mighty</span></button>
+		<button type="button" value="16" title="Ray" class="encoreCharacter2 character ray"><span>Ray</span></button>
+	</div>
+	<div id="section_characters"><h3>Collected Characters</h3>
+		<p><button type="button" value="1" title="Sonic" class="encoreCharacters mini sonic"><span>Sonic</span></button>
+		<button type="button" value="2" title="Tails" class="encoreCharacters mini tails"><span>Tails</span></button>
+		<button type="button" value="4" title="Knuckles" class="encoreCharacters mini knuckles"><span>Knuckles</span></button>
+		<button type="button" value="8" title="Mighty" class="encoreCharacters mini mighty"><span>Mighty</span></button>
+		<button type="button" value="16" title="Ray" class="encoreCharacters mini ray"><span>Ray</span></button></p>
+	</div>
+	<div id="section_characterOrder"><h3>Order</h3>
+		<p></p>
+	</div>
+	<div class="section_lives"><h3>Lives</h3>
+		<p><input type="number" min="0" max="99" value="0" class="lives"></p>
+	</div>
+	<div class="section_continues"><h3>Continues</h3>
+		<p><input type="number" min="0" max="99" value="0" class="continues"></p>
+	</div>
+	<div class="section_score"><h3>Score</h3>
+		<p><input type="number" min="0" max="9999999" value="0" class="score"></p>
+	</div>
+	<div class="section_stage"><h3>Stage</h3>
+		<p class="preview"></p>
+		<p><span class="showStage"></span></p>
+		<p><input type="range" min="0" max="13" value="0" class="stage"></p>
+	</div>
+	<div class="section_emeralds"><h3>Chaos Emeralds</h3>
+		<p><button type="button" value="1" title="Green Chaos Emerald" class="encoreEmerald emerald green"><span>Green</span></button>
+		<button type="button" value="2" title="Yellow Chaos Emerald" class="encoreEmerald emerald yellow"><span>Yellow</span></button>
+		<button type="button" value="4" title="Purple Chaos Emerald" class="encoreEmerald emerald purple"><span>Purple</span></button>
+		<button type="button" value="8" title="Pink Chaos Emerald" class="encoreEmerald emerald pink"><span>Pink</span></button><wbr>
+		<button type="button" value="16" title="Grey Chaos Emerald" class="encoreEmerald emerald grey"><span>Grey</span></button>
+		<button type="button" value="32" title="Blue Chaos Emerald" class="encoreEmerald emerald blue"><span>Blue</span></button>
+		<button type="button" value="64" title="Red Chaos Emerald" class="encoreEmerald emerald red"><span>Red</span></button></p>
+	</div>
+	<div class="section_giantRings"><h3>Giant Rings</h3>
+		<p><button type="button" class="encoreRing ring" value="0"><span>1</span></button>
+		<button type="button" class="encoreRing ring" value="1"><span>2</span></button>
+		<button type="button" class="encoreRing ring" value="2"><span>3</span></button>
+		<button type="button" class="encoreRing ring" value="3"><span>4</span></button><wbr>
+		<button type="button" class="encoreRing ring" value="4"><span>5</span></button>
+		<button type="button" class="encoreRing ring" value="5"><span>6</span></button>
+		<button type="button" class="encoreRing ring" value="6"><span>7</span></button></p>
+		<p><label>Next Special Stage: <select class="specialStages">
+			<option value="1">Special Stage 1</option>
+			<option value="2">Special Stage 2</option>
+			<option value="3">Special Stage 3</option>
+			<option value="4">Special Stage 4</option>
+			<option value="5">Special Stage 5</option>
+			<option value="6">Special Stage 6</option>
+			<option value="7">Special Stage 7</option>
+			<option value="0">Completed</option>
+		</select></label></p>
+	</div>
+	<div class="section_times"><h3>Times</h3>
+		<p><span class="showLevel"></span></p>
+		<p><input type="range" min="0" max="26" value="0" class="level"></p>
+		<p><input type="number" min="0" max="99" value="0" class="time hr"> :
+		<input type="number" min="0" max="59" value="0" class="time min"> &prime;
+		<input type="number" min="0" max="59" value="0" class="time sec"> &Prime;
+		<input type="number" min="0" max="99" value="0" class="time tick"></p>
+	</div>
+	<div class="section_totalTime"><h3>Total Time</h3>
+		<p><span class="totalHr">0</span>: <span class="totalMin">0</span>&prime; <span class="totalSec">00</span>&Prime; <span class="totalTick">00</span></p>
+	</div>
+	<div class="section_unknown" hidden="hidden"><h3>Unknown</h3>
+		<p>0x078: <input type="number" min="0" max="255" value="0" id="encoreUnknown"></p>
+	</div>
+</div></section>
+<section id="extras"><h2>Extras</h2>
+<div class="container">
+	<div id="section_medals"><h3>Medallions</h3>
+		<p><button type="button" value="0" title="1" class="medal empty"><span>1</span></button>
+		<button type="button" value="0" title="2" class="medal empty"><span>2</span></button>
+		<button type="button" value="0" title="3" class="medal empty"><span>3</span></button>
+		<button type="button" value="0" title="4" class="medal empty"><span>4</span></button>
+		<button type="button" value="0" title="5" class="medal empty"><span>5</span></button>
+		<button type="button" value="0" title="6" class="medal empty"><span>6</span></button>
+		<button type="button" value="0" title="7" class="medal empty"><span>7</span></button>
+		<button type="button" value="0" title="8" class="medal empty"><span>8</span></button><br>
+		<button type="button" value="0" title="9" class="medal empty"><span>9</span></button>
+		<button type="button" value="0" title="10" class="medal empty"><span>10</span></button>
+		<button type="button" value="0" title="11" class="medal empty"><span>11</span></button>
+		<button type="button" value="0" title="12" class="medal empty"><span>12</span></button>
+		<button type="button" value="0" title="13" class="medal empty"><span>13</span></button>
+		<button type="button" value="0" title="14" class="medal empty"><span>14</span></button>
+		<button type="button" value="0" title="15" class="medal empty"><span>15</span></button>
+		<button type="button" value="0" title="16" class="medal empty"><span>16</span></button><br>
+		<button type="button" value="0" title="17" class="medal empty"><span>17</span></button>
+		<button type="button" value="0" title="18" class="medal empty"><span>18</span></button>
+		<button type="button" value="0" title="19" class="medal empty"><span>19</span></button>
+		<button type="button" value="0" title="20" class="medal empty"><span>20</span></button>
+		<button type="button" value="0" title="21" class="medal empty"><span>21</span></button>
+		<button type="button" value="0" title="22" class="medal empty"><span>22</span></button>
+		<button type="button" value="0" title="23" class="medal empty"><span>23</span></button>
+		<button type="button" value="0" title="24" class="medal empty"><span>24</span></button><br>
+		<button type="button" value="0" title="25" class="medal empty"><span>25</span></button>
+		<button type="button" value="0" title="26" class="medal empty"><span>26</span></button>
+		<button type="button" value="0" title="27" class="medal empty"><span>27</span></button>
+		<button type="button" value="0" title="28" class="medal empty"><span>28</span></button>
+		<button type="button" value="0" title="29" class="medal empty"><span>29</span></button>
+		<button type="button" value="0" title="30" class="medal empty"><span>30</span></button>
+		<button type="button" value="0" title="31" class="medal empty"><span>31</span></button>
+		<button type="button" value="0" title="32" class="medal empty"><span>32</span></button></p>
+		<p><button type="button" value="1" class="setAllMedals">Set All to Silver</button>
+		<button type="button" value="2" class="setAllMedals">Set All to Gold</button>
+		<button type="button" value="0" class="setAllMedals">Clear All</button></p>
+		<p><label><input type="checkbox" value="0" class="flag"> Use pinball bonus stage.</label></p>
+	</div>
+	<div id="section_alerts"><h3>Alerts</h3>
+		<ul><li><label><input type="checkbox" value="23" class="alert"> Are you the fastest thing alive? Time Attack is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="24" class="alert"> Prepare to challenge! Competition is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="25" class="alert"> Super Peel-out, Sonic&rsquo;s ability from Sonic CD, is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="26" class="alert"> Insta-Shield, Sonic&rsquo;s ability from Sonic 3&amp;K, is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="27" class="alert"> Knock Knock! &amp; Knuckles Mode is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="28" class="alert"> You can do anything! Debug Mode is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="29" class="alert"> Yeehaw! Mean Bean is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="30" class="alert"> Jammin&rsquo;! D.A. Garden is now unlocked!</label></li>
+		<li><label><input type="checkbox" value="31" class="alert"> No way! Blue Spheres is now unlocked!</label></li></ul>
+	</div>
+	<div class="section_unknown" hidden="hidden"><h3>Unknown</h3>
+		<p>0x118: <input type="number" min="0" max="255" value="0" id="extrasUnknown"></p>
+	</div>
+</div></section>
+<section id="save"><h2>Save Game</h2>
+<div id="section_save">
+	<button type="button" title="Save" id="download">Save</button>
+	<button type="button" title="Reset" id="reset">Reset</button></div>
+	<div><a id="link">Download</a></div>
+</section>
+<div id="hexview" class="overlay"><div><div id="col"></div><div id="hex"></div><div id="asc"></div></div>
+<p><button type="button" class="close"><img src="layout/close.svg" alt="[Close]" title="Close"></button></p></div>
+<div id="error" class="overlay"><p>An unknown error has occurred.</p>
+<p><button type="button" class="close"><img src="layout/close.svg" alt="[Close]" title="Close"></button></p></div></main>
+<footer>Created by <a href="mailto:jcfields@jcfields.dev">J.C. Fields</a>. Hosted by <a href="https://github.com/jcfieldsdev/sonic-mania-save-editor">GitHub</a>.</footer></body></html>

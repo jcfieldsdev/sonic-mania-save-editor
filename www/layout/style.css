@@ -1,0 +1,914 @@
+@font-face {
+	font-family: "Evolve Sans";
+	font-style: normal;
+	font-weight: normal;
+	src: url(fonts/EvolveSans-Regular.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Evolve Sans";
+	font-style: normal;
+	font-weight: 700;
+	src: url(fonts/EvolveSans-Bold.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Evolve Sans";
+	font-style: italic;
+	font-weight: normal;
+	src: url(fonts/EvolveSans-Italic.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Lemon Milk";
+	font-style: normal;
+	font-weight: normal;
+	src: url(fonts/LemonMilk-Regular.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Lemon Milk";
+	font-style: normal;
+	font-weight: 700;
+	src: url(fonts/LemonMilk-Medium.woff2) format("woff2");
+}
+
+@font-face {
+	font-family: "Lemon Milk";
+	font-style: normal;
+	font-weight: 900;
+	src: url(fonts/LemonMilk-Bold.woff2) format("woff2");
+}
+
+@keyframes scroll {
+	from {
+		background-position: 0;
+	}
+
+	to {
+		background-position: 200%;
+	}
+}
+
+:root {
+	--main: #f6d95b;
+	--inner-ring: #faa01d;
+	--outer-ring: #95b0c2;
+	--load: rgba(223, 67, 40, 0.7);
+	--mania-mode: rgba(60, 183, 210, 0.8);
+	--encore-mode: rgba(160, 97, 230, 0.7);
+	--time-attack-mode: rgba(84, 216, 168, 0.8);
+	--extras: rgba(252, 133, 57, 0.8);
+	--options: rgba(79, 159, 242, 0.9);
+	--error: rgba(205, 89, 247, 0.9);
+}
+
+a {
+	background: none;
+	color: #000;
+	font-weight: 700;
+}
+
+a, button:hover {
+	cursor: pointer;
+}
+
+a#link, button span, span.title {
+	display: none;
+}
+
+a:hover, a:active {
+	background: none;
+	color: var(--inner-ring);
+	transition: 0.3s color;
+}
+
+body {
+	margin: 0 20%;
+	padding: 0;
+}
+
+body, noscript {
+	text-align: center;
+}
+
+button {
+	background: none;
+	border: 0;
+	border-radius: 0.5em;
+	color: inherit;
+}
+
+button, html, input, select {
+	font-family: "Evolve Sans", Helvetica, sans-serif;
+}
+
+button, input, select {
+	font-size: inherit;
+	text-align: center;
+}
+
+button#toggleUnknown, button.setAllMedals {
+	background: none;
+	border: 1px solid #000;
+	border-radius: 0.5em;
+	color: #000;
+	font-size: 0.75rem;
+	font-weight: 700;
+	margin: 0.25em;
+	padding: 0.25em 1em;
+}
+
+button#toggleUnknown:hover, button.setAllMedals:hover {
+	background: none;
+	border-color: #fff;
+	color: #fff;
+}
+
+button.blue {
+	background-image: url(../images/emerald-blue.png);
+}
+
+button.character {
+	height: 110px;
+	width: 138px;
+}
+
+button.character, button.emerald {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	color: inherit;
+	padding: 2em;
+}
+
+button.character, button.emerald, button.medal, button.mini {
+	filter: brightness(0) invert(0.5);
+	mix-blend-mode: multiply;
+}
+
+button.character.knuckles {
+	background-size: 102px 94px;
+}
+
+button.character.mighty {
+	background-size: 106px 100px;
+}
+
+button.character.ray {
+	background-size: 72px 88px;
+}
+
+button.character.selected, button.characterOrder, button.emerald.collected,
+button.medal.gold, button.medal.silver, button.mini.active {
+	filter: none;
+	mix-blend-mode: normal;
+	transition: 0.3s all;
+}
+
+button.character.sonic {
+	background-size: 110px 110px;
+}
+
+button.character.sonictails {
+	background-size: 138px 94px;
+}
+
+button.character.tails {
+	background-size: 102px 88px;
+}
+
+button.characterOrder {
+	background-color: rgba(255, 255, 255, 0.5);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	border-radius: 0.5em;
+	color: inherit;
+	padding: 1em 1.5em;
+}
+
+button.characterOrder:hover {
+	background-color: #fff;
+	color: inherit;
+}
+
+button.close img {
+	height: 32px;
+	width: 32px;
+}
+
+button.emerald {
+	background-size: 56px 40px;
+	height: 40px;
+	width: 56px;
+}
+
+button.green {
+	background-image: url(../images/emerald-green.png);
+}
+
+button.grey {
+	background-image: url(../images/emerald-grey.png);
+}
+
+button.knuckles, button.tab.knuckles2::after {
+	background-image: url(../images/icon-knuckles.png);
+}
+
+button.medal {
+	background: url(../images/medal-silver.png);
+	background-size: 34px 33px;
+	color: inherit;
+	height: 33px;
+	margin: 0.25em;
+	width: 34px;
+}
+
+button.medal.gold {
+	background-image: url(../images/medal-gold.png);
+}
+
+button.mighty, button.tab.mighty2::after {
+	background-image: url(../images/icon-mighty.png);
+}
+
+button.mini {
+	background-size: 36px 42px;
+	height: 42px;
+	margin: 0 0.5em;
+	width: 36px;
+}
+
+button.mini.knuckles {
+	background-image: url(../images/mini-knuckles.png);
+}
+
+button.mini.mighty {
+	background-image: url(../images/mini-mighty.png);
+}
+
+button.mini.ray {
+	background-image: url(../images/mini-ray.png);
+}
+
+button.mini.sonic {
+	background-image: url(../images/mini-sonic.png);
+}
+
+button.mini.tails {
+	background-image: url(../images/mini-tails.png);
+}
+
+button.option {
+	background: #202020;
+	border-radius: 0.5em;
+	color: #808080;
+	font-weight: 700;
+	mix-blend-mode: screen;
+	padding: 0.5em;
+	width: 5em;
+}
+
+button.option, h1, h2, h3, label, section#save button, th {
+	font-family: "Lemon Milk", Helvetica, sans-serif;
+}
+
+button.option.selected {
+	background: #c0c0c0;
+	color: inherit;
+}
+
+button.option:hover:not(.selected) {
+	color: #fff;
+}
+
+button.pink {
+	background-image: url(../images/emerald-pink.png);
+}
+
+button.purple {
+	background-image: url(../images/emerald-purple.png);
+}
+
+button.ray, button.tab.ray2::after {
+	background-image: url(../images/icon-ray.png);
+}
+
+button.red {
+	background-image: url(../images/emerald-red.png);
+}
+
+button.ring {
+	background: url(../images/ring-on.png) 50% 50%;
+	background-size: 50px 50px;
+	color: inherit;
+	font-weight: 700;
+	height: 50px;
+	margin: 0.25em;
+	width: 50px;
+}
+
+button.ring span {
+	display: inline;
+}
+
+button.ring.active {
+	background-image: url(../images/ring-off.png);
+}
+
+button.sonic, button.tab.sonic2::after {
+	background-image: url(../images/icon-sonic.png);
+}
+
+button.sonictails {
+	background-image: url(../images/icon-sonictails.png);
+}
+
+button.tab {
+	background-position: 15% 30%;
+	background-repeat: no-repeat;
+	background-size: auto 2em;
+	border-color: #000;
+	border-style: solid;
+	border-width: 1px 1px 0;
+	font-weight: 700;
+	margin: 0;
+	padding: 0.5em 1em 0.5em 0.5em;
+	position: relative;
+	text-align: right;
+	width: 5em;
+}
+
+button.tab.active, button.tab:hover {
+	mix-blend-mode: normal;
+}
+
+button.tab::after {
+	background-position: 40% 25%;
+	background-repeat: no-repeat;
+	background-size: auto 1.5em;
+	content: "";
+	height: 2em;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 5em;
+}
+
+button.tab.tails2::after, button.tails {
+	background-image: url(../images/icon-tails.png);
+}
+
+button.yellow {
+	background-image: url(../images/emerald-yellow.png);
+}
+
+button[disabled] {
+	cursor: default;
+}
+
+button[disabled], input[disabled], select[disabled] {
+	opacity: 0.25;
+	transition: 0.5s opacity;
+}
+
+canvas#backdrop {
+	height: 100%;
+	left: 50%;
+	position: fixed;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: auto;
+	z-index: -1;
+}
+
+div#asc {
+	background: #f4f4f4;
+	color: inherit;
+}
+
+div#col {
+	background: #d4d4d4;
+	color: inherit;
+	font-weight: 700;
+}
+
+div#col, div#hex {
+	border-right: 1px solid #c0c0c0;
+}
+
+div#section_alerts {
+	grid-area: alerts;
+}
+
+div#section_alerts ul {
+	list-style: none;
+	margin: auto;
+	padding: 0;
+	text-align: left;
+	white-space: nowrap;
+	width: min-content;
+}
+
+div#section_character {
+	grid-area: character;
+}
+
+div#section_character, div#section_character1,
+div#section_character2, div#section_characters,
+div.section_emeralds, div.section_giantRings, h1, h2 {
+	white-space: nowrap;
+}
+
+div#section_character1 {
+	grid-area: character1;
+}
+
+div#section_character2 {
+	grid-area: character2;
+}
+
+div#section_characterOrder {
+	grid-area: order;
+}
+
+div#section_characters {
+	grid-area: characters;
+}
+
+div#section_options {
+	grid-area: options;
+}
+
+div.container {
+	border-style: solid;
+	border-width: 0 0 1px 1px;
+	border-radius: 2em;
+	padding: 1em 0;
+}
+
+div#error {
+	width: 24em;
+}
+
+div#error p {
+	margin: 2em 4em;
+}
+
+div#hexview {
+	font-family: "Lucida Console", "Courier New", monospace;
+	max-height: 80%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	white-space: pre;
+}
+
+div#hexview>div {
+	border: 1px solid #c0c0c0;
+	display: flex;
+}
+
+div#hexview>div div {
+	padding: 0 1em;
+}
+
+div#hexview p {
+	margin: 0;
+	padding-bottom: 1em;
+}
+
+div.overlay {
+	background: #fff;
+	box-shadow: 8px 8px var(--mania-mode), 16px 16px var(--options),
+		24px 24px var(--extras), 32px 32px var(--load);
+	color: inherit;
+	left: 50%;
+	opacity: 0;
+	position: fixed;
+	text-align: center;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	visibility: hidden;
+	z-index: 2;
+}
+
+div.overlay.open {
+	opacity: 1;
+	transition: 0.5s opacity;
+	visibility: visible;
+}
+
+div.section_continues {
+	grid-area: continues;
+}
+
+div.section_continues, div.section_lives, div.section_score {
+	font-size: 1.5rem;
+}
+
+div.section_emeralds {
+	grid-area: emeralds;
+}
+
+div.section_giantRings {
+	grid-area: giantRings;
+}
+
+div.section_lives {
+	grid-area: lives;
+}
+
+div.section_score {
+	grid-area: score;
+}
+
+div.section_stage {
+	grid-area: stage;
+}
+
+div.section_times {
+	grid-area: times;
+}
+
+div.section_totalTime {
+	font-size: 2.5rem;
+	grid-area: totalTime;
+}
+
+div.section_totalTime h3 {
+	margin-bottom: 3em;
+}
+
+div.section_unknown {
+	grid-area: unknown;
+}
+
+div.section_unknown input {
+	width: 3em;
+}
+
+footer {
+	font-size: 0.75rem;
+	margin-top: 4em;
+	padding: 1em;
+}
+
+h1 {
+	background-color: transparent;
+	background-image: url(title.svg);
+	background-position: 0 0, 8px 8px;
+	background-repeat: no-repeat;
+	background-size: 400px 230px;
+	color: #fff;
+	font-size: 2.25rem;
+	font-weight: 900;
+	margin: 1em auto 2em;
+	padding-top: calc(230px + 0.5em);
+	width: 400px;
+	-webkit-text-stroke: 2px #000;
+}
+
+h2 {
+	font-size: 2rem;
+	font-weight: 700;
+	margin: 2em 1em;
+	text-shadow: -2px -2px var(--inner-ring), 2px 2px var(--outer-ring);
+	text-transform: uppercase;
+}
+
+h3 {
+	font-size: 1.5rem;
+	font-weight: 900;
+	color: inherit;
+	-webkit-text-stroke: 1px #fff;
+}
+
+html {
+	background: var(--main);
+	color: #000;
+	font-size: 12pt;
+	line-height: 150%;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	overflow-x: hidden;
+	padding: 0;
+}
+
+input#speed {
+	width: 200px;
+}
+
+input.continues, input.lives {
+	width: 3em;
+}
+
+input.level {
+	width: 400px;
+}
+
+input.score {
+	width: 6em;
+}
+
+input.stage, p.preview {
+	width: 256px;
+}
+
+input.time {
+	width: 4em;
+}
+
+input[type="number"], input[type="text"] {
+	border-radius: 0.25em;
+	padding: 0.25em;
+}
+
+input[type="number"], input[type="text"], select {
+	background: #808080;
+	border: 1px solid #c0c0c0;
+	box-shadow: 0.1em 0.1em #c0c0c0;
+	color: #fff;
+	mix-blend-mode: multiply;
+}
+
+input[type="range"] {
+	background: transparent;
+	color: #fff;
+	mix-blend-mode: multiply;
+	-webkit-appearance: none;
+}
+
+input[type="range"]:focus {
+	outline: 0;
+}
+
+input[type="range"]::-moz-range-thumb {
+	background: #000 radial-gradient(#808080, #000);
+	border: 3px solid #c0c0c0;
+	border-radius: 100%;
+	height: 1.5em;
+	width: 1.5em;
+}
+
+input[type="range"]::-moz-range-track {
+	background: #808080 linear-gradient(#c0c0c0, #808080);
+	border-radius: 1em;
+	border: 2px solid #c0c0c0;
+	height: 1em;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	background: #808080 linear-gradient(#c0c0c0, #808080);
+	border-radius: 1em;
+	border: 2px solid #c0c0c0;
+	height: 1em;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	background: #000 radial-gradient(#808080, #000);
+	border: 2px solid #c0c0c0;
+	border-radius: 100%;
+	height: 1.75em;
+	margin-top: -0.5em;
+	width: 1.75em;
+	-webkit-appearance: none;
+}
+
+input[type="text"] {
+	text-transform: uppercase;
+}
+
+label {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+label, th {
+	font-weight: 700;
+}
+
+option {
+	background: initial;
+	color: initial;
+}
+
+option[disabled] {
+	background: initial;
+	color: GrayText;
+}
+
+p.preview {
+	background: url(../images/static.png);
+	background-size: 256px 192px;
+	border-radius: 0.5em;
+	height: 192px;
+	margin: auto;
+}
+
+p.preview.active {
+	animation: scroll 10s linear infinite;
+	background-size: 512px 192px;
+}
+
+section#encoreMode button.tab {
+	background-position: 5% 75%;
+	background-size: auto 1.5em;
+}
+
+section#encoreMode button.tab.active, section#encoreMode div.container {
+	background-color: var(--encore-mode);
+	border-color: var(--encore-mode);
+	color: inherit;
+}
+
+section#encoreMode div.container {
+	display: grid;
+	grid-gap: 0 0;
+	grid-template-areas:
+		"character1 character1 character1 character2 character2"
+		"characters characters characters characters order"
+		"lives      continues  continues  continues  score"
+		"stage      stage      emeralds   emeralds   emeralds"
+		"stage      stage      giantRings giantRings giantRings"
+		"times      times      times      times      totalTime"
+		"unknown    unknown    unknown    unknown    unknown";
+	grid-template-columns: 33% 10% 7% 17% 33%;
+	grid-template-rows: auto;
+}
+
+section#encoreMode div.container, section#maniaMode div.container {
+	border-radius: 2em 0 2em 2em;
+}
+
+section#extras div.container {
+	background-color: var(--extras);
+	border-color: var(--extras);
+	color: inherit;
+}
+
+section#load div.container {
+	background-color: var(--load);
+	border-color: var(--load);
+	color: inherit;
+}
+
+section#maniaMode button.tab.active, section#maniaMode div.container {
+	background-color: var(--mania-mode);
+	border-color: var(--mania-mode);
+	color: inherit;
+}
+
+section#maniaMode div.container {
+	display: grid;
+	grid-gap: 0 0;
+	grid-template-areas:
+		"character character character  character  character"
+		"lives     continues continues  continues  score"
+		"stage     stage     emeralds   emeralds   emeralds"
+		"stage     stage     giantRings giantRings giantRings"
+		"times     times     times      times      totalTime"
+		"options   options   options    options    options"
+		"unknown   unknown   unknown    unknown    unknown";
+	grid-template-columns: 33% 10% 7% 17% 33%;
+	grid-template-rows: auto;
+}
+
+section#save {
+	padding: 1em;
+}
+
+section#save button {
+	background-color: rgba(255, 255, 255, 0.25);
+	border: 3px solid rgba(255, 255, 255, 0.25);
+	color: inherit;
+	font-weight: 700;
+	letter-spacing: 0.25em;
+	margin: 0.5em;
+	padding: 0.25em;
+	width: 10em;
+}
+
+section#save button:hover {
+	border-color: #fff;
+}
+
+section#timeAttack div.container, section#timeAttack button.tab.active {
+	background-color: var(--time-attack-mode);
+	border-color: var(--time-attack-mode);
+	color: inherit;
+}
+
+select {
+	background-image: url(select.svg);
+	background-position: calc(100% - 0.75em) 50%;
+	background-repeat: no-repeat;
+	background-size: 0.75em 0.75em;
+	border-radius: 1em;
+	padding: 0.25em 2em 0.25em 1em;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+table {
+	border-collapse: collapse;
+	margin: auto;
+	padding: 0;
+	vertical-align: middle;
+}
+
+td {
+	text-align: left;
+}
+
+td, th {
+	padding: 0.25em 0.5em;
+	white-space: nowrap;
+}
+
+th {
+	text-align: right;
+}
+
+ul.slots {
+	display: flex;
+	flex-direction: row-reverse;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.slots button, ul.slots li {
+	border-radius: 1em 1em 0 0;
+}
+
+ul.slots li {
+	margin: 0 0 0 0.25em;
+}
+
+@media (max-width: 1600px) {
+	body {
+		margin: 0 15%;
+	}
+}
+
+@media (max-width: 1366px) {
+	body {
+		margin: 0 10%;
+	}
+}
+
+@media (max-width: 1024px) {
+	body {
+		margin: 0 5%;
+	}
+
+	button.tab {
+		border-width: 1px;
+	}
+
+	div#section_character, div#section_character1,
+	div#section_character2, div#section_characters,
+	div.section_emeralds, div.section_giantRings {
+		white-space: normal;
+	}
+
+	section#encoreMode div.container, section#maniaMode div.container {
+		border-radius: 2em;
+		display: flex;
+		flex-direction: column;
+	}
+
+	ul.slots {
+		flex-wrap: wrap;
+	}
+
+	ul.slots button {
+		padding: 0.5em 1em;
+	}
+
+	ul.slots button, ul.slots li {
+		border-radius: 1em;
+	}
+
+	ul.slots li {
+		margin: 0 0 0.25em 0.25em;
+	}
+}
+
+@media (max-width: 768px) {
+	body {
+		margin: 0 1%;
+	}
+
+	div#section_alerts ul {
+		white-space: normal;
+		width: auto;
+	}
+}
+
+@media (prefers-reduced-motion) {
+	p.preview.active {
+		animation: none;
+		background-position: 50%;
+	}
+}
